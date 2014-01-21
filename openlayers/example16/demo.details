@@ -1,0 +1,9 @@
+---
+name: OpenLayers Example 16
+authors:
+  - Mike Graves
+resources:
+  - http://maps.google.com/maps/api/js?v=3&sensor=false
+  - http://openlayers.org/api/OpenLayers.js
+normalize_css: no
+...

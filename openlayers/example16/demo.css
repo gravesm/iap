@@ -1,0 +1,35 @@
+html, body, #map {
+    width: auto;
+    height: 98%;
+}
+
+.olControlPanel {
+    right: 0;
+    top: 0;
+    margin-top: 20px;
+    margin-right: 10px;
+    width: 22px;
+}
+
+.olControlPanel .olButton {
+    margin-bottom: 3px;
+    border-radius: 3px;
+    border: 1px solid #999;
+    height: 22px;
+    width: 22px;
+}
+
+.olControlZoomToMaxExtentItemActive, .olControlZoomToMaxExtentItemInactive {
+    background: url(http://raw.github.com/gravesm/iap/master/openlayers/img/world.png) no-repeat 50% 50%;
+    background-color: #fff;
+}
+
+.olControlModifyFeatureItemActive,
+.olControlModifyFeatureItemInactive {
+    background: url(http://raw.github.com/gravesm/iap/master/openlayers/img/shape_square_red.png) no-repeat 50% 50%;
+    background-color: #fff;
+}
+
+.olControlModifyFeatureItemActive {
+    background-color: #ffca40;
+}
