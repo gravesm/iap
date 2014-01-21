@@ -10,7 +10,193 @@
             <div class="page-header">
                 <h1>OpenLayers IAP</h1>
             </div>
-            <a href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example1">Example 1</a>
+
+            <h2>
+                Adding a Map
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example1">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>a map is tied to an HTML div</li>
+                    <li>a map has a projection</li>
+                    <li>a map consists of one or more layers of raster or vector data</li>
+                </ul>
+            </p>
+
+            <h2>
+                Adding a Feature
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example2">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>features need a geometry</li>
+                    <li>features are added to layers</li>
+                </ul>
+            </p>
+
+            <h2>
+                Accessing a Feature's Data
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example3">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>features usually have data attached to them</li>
+                    <li>we can do things with that data through callbacks</li>
+                </ul>
+            </p>
+
+            <h2>
+                Styling a Feature
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example4">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>different aspects of a feature can be styled</li>
+                    <li>styles are applied on a per layer basis</li>
+                </ul>
+            </p>
+
+            <h2>
+                Making a Feature's Style Interactive
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example5">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>features have different states (default & selected)</li>
+                    <li>styles can be applied to those states</li>
+                </ul>
+            </p>
+
+            <h2>
+                Making a Feature's Style Dynamic, Part 1
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example6">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>feature attributes are accessible in the style</li>
+                    <li>style properties can be set based on feature's attributes</li>
+                </ul>
+            </p>
+
+            <h2>
+                Making a Feature's Style Dynamic, Part 2
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example7">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>style properties can be set based on a callback's return value</li>
+                    <li>feature attributes can be passed to a callback</li>
+                </ul>
+            </p>
+
+            <h2>
+                Using Rules to Style Features
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example8">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>styles can be applied on a per feature basis using rules</li>
+                    <li>a rule consists of a filter and a symbolizer to apply when the filter is matched</li>
+                    <li>features not matching any filter will not be drawn</li>
+                </ul>
+            </p>
+
+            <h2>
+                Loading Data From a KML File
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example9">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>data can be loaded from remote sources</li>
+                    <li>data can be reprojected</li>
+                    <li>strategies determine when data is requested</li>
+                    <li>the protocol determines how data is requested</li>
+                    <li>the format determines how the data is interpreted</li>
+                </ul>
+            </p>
+
+            <h2>
+                Adding a WFS Layer
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example10">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>some strategies only work for certain protocols</li>
+                    <li>the BBOX strategy limits features to visibile map</li>
+                </ul>
+            </p>
+
+            <h2>
+                Getting Data From WFS Features
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example11">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>WFS provides attribute data</li>
+                    <li>this attribute data is accessible through the feature</li>
+                </ul>
+            </p>
+
+            <h2>
+                Adding a WMS Layer
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example12">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>vector data is expensive to load and render</li>
+                    <li>WMS is a more efficient way of displaying lots of vector data</li>
+                </ul>
+            </p>
+
+            <h2>
+                Getting Features From a WMS Layer
+                <a  class="btn btn-info btn-xs"
+                    href="http://jsfiddle.net/gh/get/jquery/1.9.1/gravesm/iap/tree/master/openlayers/example13">
+                    Demo
+                </a>
+            </h2>
+            <p>
+                <ul>
+                    <li>WMS does not add features, just tiled images</li>
+                    <li>you can use WFS to get request features from a WMS layer</li>
+                </ul>
+            </p>
         </div>
     </body>
 </html>
