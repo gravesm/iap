@@ -1,7 +1,7 @@
 $(function() {
-    
+
     var map, baselayer, point, feature, points;
-    
+
     map = new OpenLayers.Map({
         div: "map",
         projection: "EPSG:900913"
@@ -10,11 +10,18 @@ $(function() {
     baselayer = new OpenLayers.Layer.Google("Google Layer");
     map.addLayer(baselayer);
 
-    point = new OpenLayers.Geometry.Point(-71.063, 42.358).transform(
+    point1 = new OpenLayers.Geometry.Point(-71.063, 42.358).transform(
         "EPSG:4326", "EPSG:900913");
-    feature = new OpenLayers.Feature.Vector(point, {
+    feature1 = new OpenLayers.Feature.Vector(point1, {
         name: "Boston",
         size: 20
+    });
+
+    point2 = new OpenLayers.Geometry.Point(2.35, 48.853).transform(
+        "EPSG:4326", "EPSG:900913");
+    feature2 = new OpenLayers.Feature.Vector(point2, {
+        name: "Paris",
+        size: 30
     });
 
     points = new OpenLayers.Layer.Vector("Points", {
@@ -31,7 +38,25 @@ $(function() {
                         var size = feature.attributes.size;
                         return Math.max(1, Math.log(size)) * 3;
                     }
-                }
+                },
+                rules: [
+                    new OpenLayers.Rule({
+                        filter: new OpenLayers.Filter.Comparison({
+                            type: OpenLayers.Filter.Comparison.GREATER_THAN,
+                            property: "size",
+                            value: 20
+                        }),
+                        symbolizer: {
+                            fillColor: "blue",
+                            label: "${name}",
+                            fontColor: "#ff3300",
+                            fontWeight: "bold"
+                        }
+                    }),
+                    new OpenLayers.Rule({
+                        elseFilter: true
+                    })
+                ]
             }),
             select: new OpenLayers.Style({
                 fillColor: "#25D500"
@@ -39,7 +64,7 @@ $(function() {
         })
     });
 
-    points.addFeatures([feature]);
+    points.addFeatures([feature1, feature2]);
     map.addLayer(points);
 
     map.addControl(new OpenLayers.Control.SelectFeature(
@@ -49,7 +74,7 @@ $(function() {
             autoActivate: true
         })
     );
-    
+
     map.addControl(new OpenLayers.Control.SelectFeature(
         points, {
             autoActivate: true,
@@ -59,7 +84,7 @@ $(function() {
                 }
         }
     }));
-    
+
     map.zoomToMaxExtent();
 
 });
