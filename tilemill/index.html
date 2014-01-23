@@ -104,7 +104,7 @@ Map {
   }
 }</pre>
             <h3>Controlling How Much Data is Rendered</h3>
-            <p>One of the great things about TileMill is that it is really fast at rendering tiles. There are limits, though, and if you zoom all the way out, you might notice that it can take a few seconds to draw all those roads. You don't really need to see every single road when you're zoomed out, though. In fact, you can't even make out most of the roads. One of the easiest ways to deal with this is to use the zoom selector. This is like the attribute selector we've been using, except we're filtering based on the zoom level:</p>
+            <p>One of the great things about TileMill is that it is really fast at rendering tiles. There are limits, though, and if you zoom all the way out, you might notice that it can take a few seconds to draw all those roads. You don't really need to see every single road when you're zoomed out, though. In fact, you can't even make out most of the roads. One of the easiest ways to deal with this is to use the zoom selector. This is like the attribute selector we've been using, except we're filtering based on the zoom level. We'll only draw the smaller roads above zoom level 6, the US Highways above zoom level 5, and we'll keep the interstates drawing at all zoom levels:</p>
             <pre>
 #roads {
   [zoom > 6] {
@@ -124,7 +124,8 @@ Map {
     }
   }
 }</pre>
-            <p>We'll only draw the smaller roads above zoom level 6, the US Highways above zoom level 5, and we'll keep the interstates drawing at all zoom levels. Now we have a bunch of roads, but we don't know which road is which, so let's add some labels to our US Highways. To prevent it from getting too cluttered we'll add labels above zoom level 10:</p>
+            <h3>Labels</h3>
+            <p>Now we have a bunch of roads, but we don't know which road is which, so let's add some labels to our US Highways. To prevent it from getting too cluttered we'll add labels above zoom level 10:</p>
             <pre>
 #roads {
   [zoom > 6] {
@@ -209,6 +210,7 @@ Map {
     }
   }
 }</pre>
+            <h3>Using Dashes</h3>
             <p>Now we're starting to look pretty good. Let's zoom into Ocracoke, at the southern end of Cape Hatteras off the coast of North Carolina. It shows a road going across to Ocracoke, but you'd be hard pressed to drive it. Let's indicate that this is a ferry. We'll use the TYPE attribute from the layer to select it, and style it as a dashed line:</p>
             <pre>
 #roads {
@@ -246,25 +248,110 @@ Map {
             <p>What we're doing here is drawing the line twice, like we did with the interstates. The first time is just a plain, thin gray line. The second time is a wider dashed line with the space between dashes exaggerated.</p>
             <p>At this point, although we haven't covered everything, you should have the basics of making maps with vector data. Next up, we'll look at how we can work with raster data and some of the more advanced features, like compositing operations.</p>
             <h2>Creating a Geography Map</h2>
+            <h3>Setting Things Up</h3>
             <p>We're going to start a new project. As with before, give it a name, unncheck Default data and click Add. Let's set our background color here to a gray:</p>
             <pre>
 Map {
   background-color: #999;
 }</pre>
-            <p>Now we'll add our country data set again. Set the ID to <code>countries</code>. This time we're going to store our color in a variable. We do that with the <code>@</code> symbol:<p>
+            <p>Now we'll add our country data set again. Set the ID to <code>countries</code>. This time we're going to store our color in a variable. It's a good idea to use variables for things you might end up using more than once. We do that with the <code>@</code> symbol:<p>
             <pre>@&lt;variable name&gt;:&lt;variable value&gt;</pre>
-            <p>It's a good idea to use variables for things you might end up using more than once. We're also going to use HSL values to set our color. HSL, which stands for hue, saturation and lightness, can often be a more intuitive way to think about color. It's also much easier to manipulate using the sorts of operations you often use on colors.</p>
-            <p>Defining an HSL value requires three values. I'm going to start with the last value first. This is the lightness of the color, and is probably the easiest to understand. It's stated as a percentage, with 100% being white and 0% being black. The second value is the saturation. This is also represented as a percentage and can sort of be thought of as how vibrant the color is. The first value is the hue. This defines what we might think of primarily as the "color". This is represented as a value from 0-360 and identifies a point on a color wheel. At 0 degrees you'll find red, at 120 degrees is green and at 240 degrees is blue.</p>
-            <p>For example, if we want a true red color we would use hsl(0,100%,50%). Green would be hsl(0,100%,50%). Sometimes, you will see people talk about color in terms of cyan, magenta and yellow, rather than red, green and blue. If we think about our color wheel with points at 0, 120 and 240 for red, green and blue, and we rotate it 60 degrees, our points would now represent yellow, cyan and magenta. This is also easy to represent with HSL. For example, yellow would be hsl(60,100%,50%), cyan would be hsl(180,100%,50%) and magenta would be hsl(300,100%,50%). For now, let's just set the land color to a light gray. To do that, we just want to completely desaturate a color--any color (by desaturating, we are basically removing all color)--and increase the lightness:</p>
+            <p>We'll create a variable near the top of the file called <code>land</code> and set the value to a light gray:</p>
+            <pre>@land: hsl(0,0%,80%);</pre>
+            <p>We're using HSL values here to set our color. HSL, which stands for hue, saturation and lightness, can often be a more intuitive way to think about color. It's also much easier to manipulate using the sorts of operations you often use on colors.</p>
+            <div class="panel panel-info">
+              <div class="panel-heading">Using HSL</div>
+              <div class="panel-body">
+                <p>Defining an HSL value requires three values. I'm going to start with the last value first. This is the lightness of the color, and is probably the easiest to understand. It's stated as a percentage, with 100% being white and 0% being black. The second value is the saturation. This is also represented as a percentage and can sort of be thought of as how vibrant the color is. Setting the saturation to 0% will create a gray. The first value is the hue. This defines what we might think of primarily as the "color". This is represented as a value from 0-360 and identifies a point on a color wheel. At 0 degrees you'll find red, at 120 degrees is green and at 240 degrees is blue.</p>
+                <p>For example, if we want a true red color we would use hsl(0,100%,50%). Green would be hsl(120,100%,50%) and blue would be hsl(240,100%,50%). Sometimes, you will see people talk about color in terms of cyan, magenta and yellow, rather than red, green and blue. If we think about our color wheel with points at 0, 120 and 240 for red, green and blue, and we rotate it 60 degrees, our points would now represent yellow, cyan and magenta. This is also easy to represent with HSL. For example, yellow would be hsl(60,100%,50%), cyan would be hsl(180,100%,50%) and magenta would be hsl(300,100%,50%).</p>
+              </div>
+            </div>
+            <p>We can reference a variable that we've defined by using the variable's name. Here, we'll use our @land variable to color our countries layer:</p>
             <pre>
-@land: hsl(0,0%,80%);
 #countries {
   polygon-fill: @land;
 }</pre>
-            <p>Now, let's add an ocean layer and give it some color:</p>
+            <p>Next, let's add an ocean layer and give it some color. Go to your add layers panel, set the layer ID to <code>ocean</code>, use the <code>natural-earth-1.4.0/physical/10m-ocean.zip</code> dataset and style it:</p>
             <pre>
 #ocean {
   polygon-fill: hsl(199,35%,55%);
+}</pre>
+            <h3>Compositing Operations</h3>
+            <p>We have a good base to build on, so let's add some bathymetry data to our map. We'll use the <code>natural-earth-1.4.0/physical/10m-bathymetry.zip</code> dataset. This layer consists of overlapping polygons. We're going to start by setting the color to a green that is so dark it's almost black:</p>
+            <pre>
+#bathymetry {
+  polygon-fill: hsl(120,15%,2%);
+}</pre>
+            <p>Here's where the magic happens. We're going to use a compositing operation on our bathymetry layer. Compositing operations define how a layer interacts with the layers below it. By default, all layers are set to <code>src-over</code>, which just draws the layer on top of the layers without any interaction. TileMill supports a number of different compositing operations, and we'll use a few more later. For now, we're going to use the minus operation. This subtracts the color of the layer from the layers below it. In this case, we are subtracting green from our ocean layer, which will bring out the red and blue colors. In other words, by removing green (albeit only a small amount of green) we create purple:</p>
+            <pre>
+#bathymetry {
+  polygon-fill: hsl(120,15%,2%);
+  polygon-comp-op: minus;
+}</pre>
+            <h3>Working With Colors</h3>
+            <p>Let's come back to our countries layer. If you open up the layer features list you'll see that there's a MAP_COLOR attribute with a min of 0 and a max of 13. Let's use this attribute to add some color to our map. Rather than specifying a color explicitly, we're going to use color functions to modify our @land variable. The first thing we'll want to do is add some color to our variable, since it's completely desaturated:<p>
+            <pre>@land: hsl(0,75%,80%);</pre>
+            <p>CartoCSS supports a number of color functions. While they can be used on any color, they often tend to make the most sense when used in conjunction with HSL values. Our land color is currently set to a red. If we wanted to create a green, we could just specify another HSL value, but we could also use the spin() function to change the color of an existing variable. So to get to green from red we want to rotate the color wheel by 120 degrees:</p>
+            <pre>
+#countries {
+  polygon-fill: @land;
+  [MAP_COLOR=1] {
+    polygon-fill: spin(@land, 120);
+  }
+}</pre>
+            <p>The spin() function takes an initial color and then a number of degrees to rotate the color wheel. We'll go ahead and do this for a few different colors:</p>
+            <pre>
+#countries {
+  polygon-fill: @land;
+  [MAP_COLOR=1] {
+    polygon-fill: spin(@land, 120);
+  }
+  [MAP_COLOR=2] {
+    polygon-fill: spin(@land, 200);
+  }
+  [MAP_COLOR=3] {
+    polygon-fill: spin(@land, 30);
+  }
+  [MAP_COLOR=4] {
+    polygon-fill: spin(@land, 60);
+  }
+  [MAP_COLOR>6] {
+    polygon-fill: lighten(desaturate(@land, 100%), 10%);
+  }
+}</pre>
+          <p>Let's make the country borders stand out a bit more. What we're going to do next may seem a little odd, but trust me. First, let's add a duplicate countries layer and set the ID to <code>borders</code>. Give this layer some nice, thick lines:</p>
+          <pre>
+#borders {
+  line-width: 10;
+}</pre>
+          <p>Woah, that looks bad. We can use the <code>line-join</code> property to smooth out the vertices:</p>
+          <pre>
+#borders {
+  line-width: 10;
+  line-join: round;
+}</pre>
+          <p>Yeah, that still looks bad. Open up your layer panel and drag the borders layer all the way down below your ocean layer. Now we can't see it at all, but that's okay because we are about to use some more magic. This time, we are going to use the <code>hard-light</code> compositing operation on our countries layer. What this will do is darken the countries layer where it overlaps with the borders layer:</p>
+          <pre>
+#countries {
+  polygon-fill: @land;
+  polygon-comp-op: hard-light;
+  [MAP_COLOR=1] {
+    ...</pre>
+          <p>That looks much better. We can make that border effect more subtle by changing the opacity of the borders and applying a blur effect:</p>
+          <pre>
+#borders {
+  line-width: 10;
+  line-join: round;
+  image-filters: agg-stack-blur(5,5);
+  opacity: 0.5;
+}</pre>
+          <h3>Raster Layers</h3>
+          <p>We're almost done with our map, but let's do one more thing. We'll give the land some texture by using one of the Natural Earth shaded relief datasets. The raster data is not available through the TileMill interface, but you can get the data at <a href="http://www.naturalearthdata.com/downloads/10m-raster-data/10m-shaded-relief/">http://www.naturalearthdata.com/downloads/10m-raster-data/10m-shaded-relief/</a>. TileMill may have difficulty figuring out the projection of this dataset, so you may need to explicitly set this value when you add the layer--use WGS84. We're going to use the <code>multiply</code> compositing operation on our shaded relief layer. This will make the light parts lighter and the dark parts darker:</p>
+          <pre>
+#sr {
+  raster-scaling: bilinear;
+  raster-comp-op: multiply;
+  raster-opacity: 0.3;
 }</pre>
         </div>
     </body>
